@@ -9,12 +9,13 @@ import com.kodlamaio.inventoryservice.business.dto.responses.update.UpdateCarRes
 import com.kodlamaio.inventoryservice.entities.enums.State;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface CarService {
-    List<GetAllCarsResponse> getAll(boolean includeMaintenance);
-    GetCarResponse getById(int id);
+    List<GetAllCarsResponse> getAll();
+    GetCarResponse getById(UUID id);
     CreateCarResponse add(CreateCarRequest request);
-    UpdateCarResponse update(int id, UpdateCarRequest request);
-    void  delete(int id);
-    void changeState(int carId, State state);
+    UpdateCarResponse update(UUID id, UpdateCarRequest request);
+    void  delete(UUID id);
+    void changeState(UUID carId, State state);
 }
