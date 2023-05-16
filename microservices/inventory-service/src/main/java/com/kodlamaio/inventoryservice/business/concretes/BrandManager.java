@@ -1,5 +1,6 @@
 package com.kodlamaio.inventoryservice.business.concretes;
 
+import com.kodlamaio.commonpackage.events.inventory.BrandDeletedEvent;
 import com.kodlamaio.commonpackage.utils.mappers.ModelMapperService;
 import com.kodlamaio.inventoryservice.business.abstracts.BrandService;
 import com.kodlamaio.inventoryservice.business.dto.requests.create.CreateBrandRequest;
@@ -10,6 +11,7 @@ import com.kodlamaio.inventoryservice.business.dto.responses.get.GetBrandRespons
 import com.kodlamaio.inventoryservice.business.dto.responses.update.UpdateBrandResponse;
 import com.kodlamaio.inventoryservice.business.rules.BrandBusinessRules;
 import com.kodlamaio.inventoryservice.entities.Brand;
+import com.kodlamaio.inventoryservice.kafka.producer.InventoryProducer;
 import com.kodlamaio.inventoryservice.repository.BrandRepository;
 
 import lombok.AllArgsConstructor;
@@ -28,7 +30,7 @@ public class BrandManager implements BrandService {
     private final BrandRepository repository;
     private final ModelMapperService mapper;
     private final BrandBusinessRules rules;
-
+    private final InventoryProducer producer;
     @Override
     @Cacheable(value = "brand_list")
     public List<GetAllBrandsResponse> getAll() {
@@ -75,7 +77,9 @@ public class BrandManager implements BrandService {
     public void delete(UUID id) {
         rules.checkIfBrandExistsById(id);
         repository.deleteById(id);
+        sendKafkaBrandDeletedEvent(id);
     }
+
     private void validateBrand(Brand brand){
         checkIfNameLengthValid(brand);
         //other validation functions
@@ -83,6 +87,10 @@ public class BrandManager implements BrandService {
 
     private void checkIfNameLengthValid(Brand brand) {
         if(brand.getName().length()<3 || brand.getName().length()>20) throw new IllegalArgumentException("Name lenght must be between 3 and 20 character.");
+    }
+
+    private void sendKafkaBrandDeletedEvent(UUID id) {
+        producer.sendMessage(new BrandDeletedEvent(id));
     }
 
 }
