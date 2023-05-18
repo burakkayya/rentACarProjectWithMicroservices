@@ -1,6 +1,6 @@
 package com.kodlamaio.inventoryservice.business.dto.requests.create;
 
-import com.kodlamaio.commonpackage.constants.Regex;
+import com.kodlamaio.commonpackage.utils.constants.Regex;
 import com.kodlamaio.commonpackage.utils.annotations.NotFutureYear;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

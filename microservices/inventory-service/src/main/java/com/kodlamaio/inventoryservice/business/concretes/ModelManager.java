@@ -11,9 +11,7 @@ import com.kodlamaio.inventoryservice.business.dto.responses.update.UpdateModelR
 import com.kodlamaio.inventoryservice.business.rules.ModelBusinessRules;
 import com.kodlamaio.inventoryservice.entities.Model;
 import com.kodlamaio.inventoryservice.repository.ModelRepository;
-
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

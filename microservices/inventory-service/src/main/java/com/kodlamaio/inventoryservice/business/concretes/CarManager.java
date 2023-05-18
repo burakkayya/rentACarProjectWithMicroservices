@@ -13,7 +13,7 @@ import com.kodlamaio.inventoryservice.business.dto.responses.update.UpdateCarRes
 import com.kodlamaio.inventoryservice.business.rules.CarBusinessRules;
 import com.kodlamaio.inventoryservice.entities.Car;
 import com.kodlamaio.inventoryservice.entities.enums.State;
-import com.kodlamaio.inventoryservice.kafka.producer.InventoryProducer;
+import com.kodlamaio.inventoryservice.business.kafka.producer.InventoryProducer;
 import com.kodlamaio.inventoryservice.repository.CarRepository;
 
 import lombok.AllArgsConstructor;
@@ -81,10 +81,14 @@ public class CarManager implements CarService {
     }
 
     @Override
-    public void changeState(UUID carId, State state) {
-        Car car= repository.findById(carId).orElseThrow();
-        car.setState(state);
-        repository.save(car);
+    public void changeState(State state, UUID carId) {
+        repository.changeStateByCarId(state, carId);
+    }
+
+    @Override
+    public void checkIfCarAvailable(UUID id) {
+        rules.checkIfCarExistsById(id);
+        rules.checkCarAvailability(id);
     }
 
     private void sendKafkaCarCreatedEvent(Car createdCar) {

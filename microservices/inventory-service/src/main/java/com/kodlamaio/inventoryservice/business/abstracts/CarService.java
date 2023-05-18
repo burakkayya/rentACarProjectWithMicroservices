@@ -17,5 +17,6 @@ public interface CarService {
     CreateCarResponse add(CreateCarRequest request);
     UpdateCarResponse update(UUID id, UpdateCarRequest request);
     void  delete(UUID id);
-    void changeState(UUID carId, State state);
+    void changeState(State state, UUID carId);
+    void checkIfCarAvailable(UUID id);
 }

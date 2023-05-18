@@ -1,7 +1,7 @@
 package com.kodlamaio.inventoryservice.business.rules;
 
-import com.kodlamaio.commonpackage.constants.Messages;
-import com.kodlamaio.inventoryservice.core.exceptions.BusinessException;
+import com.kodlamaio.commonpackage.utils.constants.Messages;
+import com.kodlamaio.commonpackage.utils.exceptions.BusinessException;
 import com.kodlamaio.inventoryservice.repository.ModelRepository;
 
 import lombok.AllArgsConstructor;

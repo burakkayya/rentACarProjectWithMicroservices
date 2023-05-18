@@ -1,6 +1,6 @@
 package com.kodlamaio.inventoryservice.business.dto.requests.update;
 
-import com.kodlamaio.commonpackage.constants.Regex;
+import com.kodlamaio.commonpackage.utils.constants.Regex;
 import com.kodlamaio.commonpackage.utils.annotations.NotFutureYear;
 import com.kodlamaio.inventoryservice.entities.enums.State;
 import jakarta.validation.constraints.Min;
