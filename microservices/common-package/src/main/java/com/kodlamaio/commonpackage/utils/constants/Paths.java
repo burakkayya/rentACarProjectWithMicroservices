@@ -12,4 +12,7 @@ public class Paths {
     public static class Rental {
         public static final String ServiceBasePackage = "com.kodlamaio.rentalservice";
     }
+    public static class Payment {
+        public static final String ServiceBasePackage = "com.kodlamaio.paymentservice";
+    }
 }
