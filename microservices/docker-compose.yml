@@ -15,17 +15,22 @@ services:
       - "27017:27017"
     volumes:
       - "mongodb_data:/data/db"
-  db:
-    container_name: maintenance-db-dev
-    image: mysql:8.0
+  mysql:
+    image: mysql
+    container_name: maintenancedb
     restart: always
     environment:
-      - MYSQL_DATABASE=mysql
-      - MYSQL_ROOT_PASSWORD=12345
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=maintenancedb
+      - MYSQL_USER=mysql
+      - MYSQL_TCP_PORT=3307
+      - VIRTUAL_PORT=3307
     ports:
-      - "3307:3306"
+      - '3307:3307'
+    expose:
+      - 3307
     volumes:
-      - "mysqldb_data:/data/db"
+      - mysqldb_data:/data/db
 
 volumes:
   kafka_data:

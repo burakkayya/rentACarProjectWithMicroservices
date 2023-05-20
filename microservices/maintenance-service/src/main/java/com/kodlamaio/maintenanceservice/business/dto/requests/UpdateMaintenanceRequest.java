@@ -1,6 +1,7 @@
 package com.kodlamaio.maintenanceservice.business.dto.requests;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateMaintenanceRequest {
-    @NotBlank
+    @NotNull
     private UUID carId;
     @NotBlank
     @Length(min = 2 , max = 100)

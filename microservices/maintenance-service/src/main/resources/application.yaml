@@ -3,8 +3,8 @@ spring:
     name: MAINTENANCE-SERVICE
   datasource:
     url: jdbc:mysql://localhost:3307/maintenancedb
-    username: mysql
-    password: 12345
+    username: root
+    password: root
   jpa:
     hibernate.ddl-auto: update
     generate-ddl: true
