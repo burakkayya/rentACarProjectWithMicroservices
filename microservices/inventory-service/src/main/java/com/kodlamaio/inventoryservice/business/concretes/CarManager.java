@@ -81,8 +81,9 @@ public class CarManager implements CarService {
     }
 
     @Override
-    public void changeState(State state, UUID carId) {
-        repository.changeStateByCarId(state, carId);
+    public void changeState(UUID carId, State state) {
+        var response = new ClientResponse();
+        changeCarState(state, carId, response);
     }
 
     @Override
@@ -109,6 +110,17 @@ public class CarManager implements CarService {
             rules.checkCarAvailability(id);
             response.setSuccess(true);
         } catch (Exception e){
+            response.setSuccess(false);
+            response.setMessage(e.getMessage());
+        }
+    }
+
+    private void changeCarState(State state, UUID carId, ClientResponse response) {
+        try {
+            rules.checkIfCarExistsById(carId);
+            repository.changeStateByCarId(state, carId);
+            response.setSuccess(true);
+        }catch (Exception e) {
             response.setSuccess(false);
             response.setMessage(e.getMessage());
         }

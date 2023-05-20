@@ -1,6 +1,5 @@
 package com.kodlamaio.rentalservice.business.dto.requests;
 
-import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

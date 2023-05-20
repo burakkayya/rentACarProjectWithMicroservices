@@ -18,6 +18,6 @@ public interface CarService {
     CreateCarResponse add(CreateCarRequest request);
     UpdateCarResponse update(UUID id, UpdateCarRequest request);
     void  delete(UUID id);
-    void changeState(State state, UUID carId);
+    void changeState(UUID carId, State state);
     ClientResponse checkIfCarAvailable(UUID id);
 }
