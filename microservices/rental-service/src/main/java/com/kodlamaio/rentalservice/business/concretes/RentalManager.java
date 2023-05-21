@@ -1,5 +1,6 @@
 package com.kodlamaio.rentalservice.business.concretes;
 
+import com.kodlamaio.commonpackage.events.rental.RentalPaymentCreatedEvent;
 import com.kodlamaio.commonpackage.events.rental.RentalCreatedEvent;
 import com.kodlamaio.commonpackage.events.rental.RentalDeletedEvent;
 import com.kodlamaio.commonpackage.utils.kafka.producer.KafkaProducer;
@@ -56,6 +57,9 @@ public class RentalManager implements RentalService {
         rental.setId(null);
         rental.setTotalPrice(getTotalPrice(rental));
         rental.setRentedAt(LocalDateTime.now());
+        sendKafkaRentalPaymentCreatedEvent(rental.getTotalPrice(), request);
+
+        rules.checkIfPaymentCompleted();
         Rental createdRental = repository.save(rental);
         sendKafkaRentalCreatedEvent(request.getCarId());
         CreateRentalResponse response = mapper.forResponse().map(createdRental, CreateRentalResponse.class);
@@ -91,5 +95,9 @@ public class RentalManager implements RentalService {
     private void sendKafkaRentalDeletedEvent(UUID id) {
         var carId = repository.findById(id).orElseThrow().getCarId();
         producer.sendMessage(new RentalDeletedEvent(carId), "rental-deleted");
+    }
+
+    private void sendKafkaRentalPaymentCreatedEvent(double totalPrice, CreateRentalRequest request) {
+        producer.sendMessage(new RentalPaymentCreatedEvent(totalPrice, request.getCard()),"rental-payment-created");
     }
 }
