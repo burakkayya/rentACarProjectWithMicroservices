@@ -1,5 +1,7 @@
 package com.kodlamaio.paymentservice.api.controllers;
 
+import com.kodlamaio.commonpackage.utils.dto.ClientResponse;
+import com.kodlamaio.commonpackage.utils.dto.CreateRentalPaymentRequest;
 import com.kodlamaio.paymentservice.business.abstracts.PaymentService;
 import com.kodlamaio.paymentservice.business.dto.requests.CreatePaymentRequest;
 import com.kodlamaio.paymentservice.business.dto.requests.UpdatePaymentRequest;
@@ -45,8 +47,8 @@ public class PaymentsController {
         service.delete(id);
     }
 
-    @GetMapping("/check-payment-completed")
-    public void checkPaymentCompleted(){
-        service.checkPaymentCompleted();
+    @PutMapping("/check-payment-completed")
+    public ClientResponse checkPaymentCompleted(@Valid @RequestBody CreateRentalPaymentRequest request){
+        return service.checkPaymentCompleted(request);
     }
 }

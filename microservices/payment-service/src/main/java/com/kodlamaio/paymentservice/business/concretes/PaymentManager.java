@@ -1,7 +1,8 @@
 package com.kodlamaio.paymentservice.business.concretes;
 
-import com.kodlamaio.commonpackage.events.rental.RentalPaymentCreatedEvent;
 import com.kodlamaio.commonpackage.utils.dto.ClientResponse;
+import com.kodlamaio.commonpackage.utils.dto.CreateRentalPaymentRequest;
+import com.kodlamaio.commonpackage.utils.exceptions.BusinessException;
 import com.kodlamaio.commonpackage.utils.kafka.producer.KafkaProducer;
 import com.kodlamaio.paymentservice.business.abstracts.PaymentService;
 import com.kodlamaio.paymentservice.business.abstracts.PosService;
@@ -52,7 +53,7 @@ public class PaymentManager implements PaymentService {
     public CreatePaymentResponse add(CreatePaymentRequest request) {
         rules.checkIfCardExists(request);
         Payment payment= mapper.map(request,Payment.class);
-        payment.setId(UUID.randomUUID());
+        payment.setId(null);
         Payment createdPayment = repository.save(payment);
         CreatePaymentResponse response = mapper.map(createdPayment,CreatePaymentResponse.class);
         return response;
@@ -75,30 +76,25 @@ public class PaymentManager implements PaymentService {
     }
 
     @Override
-    public void processRentalPayment(RentalPaymentCreatedEvent event) {
-            rules.checkIfPaymentIsValid(event);
-            Payment payment = repository.findByCardNumber(event.getCard().getCardNumber());
-            rules.checkIfBalanceIsEnough(event.getTotalPrice(),payment.getBalance());
-            posService.pay();
-            payment.setBalance(payment.getBalance() - event.getTotalPrice());
-            repository.save(payment);
-    }
-
-    @Override
-    public void checkPaymentCompleted() {
-        var response = new ClientResponse();
-        validatePaymentCompleted();
+    public ClientResponse checkPaymentCompleted(CreateRentalPaymentRequest request) {
+        var response=new ClientResponse();
+        validatePaymentCompleted(request, response);
 
         return response;
     }
-    private void validatePaymentCompleted() {
-        try{
-            rules.checkIfCarExistsById(id);
-            rules.checkCarAvailability(id);
+
+    private void validatePaymentCompleted(CreateRentalPaymentRequest request, ClientResponse response) {
+        try {
+            rules.checkIfPaymentIsValid(request);
+            Payment payment=repository.findByCardNumber(request.getCardNumber());
+            rules.checkIfBalanceIsEnough(request.getPrice(),payment.getBalance());
+            posService.pay(); // fake pos service
+            payment.setBalance(payment.getBalance()-request.getPrice());
+            repository.save(payment);// payment update
             response.setSuccess(true);
-        } catch (Exception e){
+        }catch (BusinessException exception){
             response.setSuccess(false);
-            response.setMessage(e.getMessage());
+            response.setMessage(exception.getMessage());
         }
     }
 

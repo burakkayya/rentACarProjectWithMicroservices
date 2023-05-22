@@ -1,27 +1,19 @@
-package com.kodlamaio.paymentservice.entities;
+package com.kodlamaio.commonpackage.utils.dto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
-
-@Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "payments")
-public class Payment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+@AllArgsConstructor
+public class CreateRentalPaymentRequest {
     private String cardNumber;
     private String cardHolder;
     private int cardExpirationYear;
     private int cardExpirationMonth;
     private String cardCvv;
-    private double balance;
+    private double price;
 }

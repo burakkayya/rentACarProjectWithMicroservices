@@ -1,6 +1,7 @@
 package com.kodlamaio.rentalservice.business.rules;
 
 import com.kodlamaio.commonpackage.utils.constants.Messages;
+import com.kodlamaio.commonpackage.utils.dto.CreateRentalPaymentRequest;
 import com.kodlamaio.commonpackage.utils.exceptions.BusinessException;
 import com.kodlamaio.rentalservice.api.clients.CarClient;
 import com.kodlamaio.rentalservice.api.clients.PaymentClient;
@@ -29,8 +30,8 @@ public class RentalBusinessRules {
         }
     }
 
-    public void checkIfPaymentCompleted(){
-        var response = paymentClient.checkIfPaymentCompleted();
+    public void checkIfPaymentCompleted(CreateRentalPaymentRequest request){
+        var response = paymentClient.checkIfPaymentCompleted(request);
         if(!response.isSuccess()){
             throw new BusinessException(response.getMessage());
         }

@@ -1,6 +1,7 @@
 package com.kodlamaio.paymentservice.business.abstracts;
 
-import com.kodlamaio.commonpackage.events.rental.RentalPaymentCreatedEvent;
+import com.kodlamaio.commonpackage.utils.dto.ClientResponse;
+import com.kodlamaio.commonpackage.utils.dto.CreateRentalPaymentRequest;
 import com.kodlamaio.paymentservice.business.dto.requests.CreatePaymentRequest;
 import com.kodlamaio.paymentservice.business.dto.requests.UpdatePaymentRequest;
 import com.kodlamaio.paymentservice.business.dto.responses.CreatePaymentResponse;
@@ -17,6 +18,5 @@ public interface PaymentService {
     CreatePaymentResponse add(CreatePaymentRequest request);
     UpdatePaymentResponse update(UUID id, UpdatePaymentRequest request);
     void delete(UUID id);
-    void processRentalPayment(RentalPaymentCreatedEvent request);
-    void checkPaymentCompleted();
+    ClientResponse checkPaymentCompleted(CreateRentalPaymentRequest request);
 }
