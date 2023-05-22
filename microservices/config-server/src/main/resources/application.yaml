@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: CONFIG-SERVER
+  cloud:
+    config:
+      server:
+        default-label: main
+        git:
+          uri: https://github.com/burakkayya/config-server
+server:
+  port: 8888
