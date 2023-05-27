@@ -1,19 +1,21 @@
-package com.kodlamaio.commonpackage.events.rental;
+package com.kodlamaio.invoiceservice.entity;
 
-import com.kodlamaio.commonpackage.events.Event;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 @Setter
 @Getter
+@Document(indexName = "invoices")
 @NoArgsConstructor
 @AllArgsConstructor
-public class RentalCreatedEvent implements Event {
-    private UUID carId;
+public class Invoice {
+    @Id
+    private String id;
     private String cardHolder;
     private String modelName;
     private String brandName;

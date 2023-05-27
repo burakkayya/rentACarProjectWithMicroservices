@@ -15,6 +15,8 @@ import java.util.UUID;
 public class GetCarResponse {
     private UUID id;
     private UUID modelId;
+    private String modelName;
+    private String brandName;
     private int modelYear;
     private String plate;
     private State state;

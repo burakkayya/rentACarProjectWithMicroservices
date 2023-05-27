@@ -1,26 +1,37 @@
-package com.kodlamaio.commonpackage.events.rental;
+package com.kodlamaio.invoiceservice.business.dto;
 
-import com.kodlamaio.commonpackage.events.Event;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
+
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RentalCreatedEvent implements Event {
-    private UUID carId;
+public class UpdateInvoiceRequest {
+    @NotBlank
     private String cardHolder;
+    @NotBlank
     private String modelName;
+    @NotBlank
     private String brandName;
+    @NotBlank
     private String plate;
+    @NotNull
+    @Min(2006)
     private int modelYear;
+    @NotNull
+    @Min(0)
     private double dailyPrice;
-    private double totalPrice;
+    @NotNull
+    @Min(0)
     private int rentedForDays;
     private LocalDateTime rentedAt;
+
 }

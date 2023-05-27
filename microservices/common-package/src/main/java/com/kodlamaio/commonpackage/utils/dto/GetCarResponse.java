@@ -1,6 +1,6 @@
-package com.kodlamaio.inventoryservice.business.dto.responses.get;
+package com.kodlamaio.commonpackage.utils.dto;
 
-import com.kodlamaio.inventoryservice.entities.enums.State;
+import com.kodlamaio.commonpackage.utils.enums.State;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetAllCarsResponse {
+public class GetCarResponse {
     private UUID id;
     private UUID modelId;
     private String modelName;

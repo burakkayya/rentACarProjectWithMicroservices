@@ -1,19 +1,17 @@
-package com.kodlamaio.commonpackage.events.rental;
+package com.kodlamaio.invoiceservice.business.dto;
 
-import com.kodlamaio.commonpackage.events.Event;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RentalCreatedEvent implements Event {
-    private UUID carId;
+public class CreateInvoiceResponse {
+    private String id;
     private String cardHolder;
     private String modelName;
     private String brandName;
