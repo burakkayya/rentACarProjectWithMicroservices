@@ -1,6 +1,7 @@
 package com.kodlamaio.rentalservice.api.clients;
 
 import com.kodlamaio.commonpackage.utils.dto.ClientResponse;
+import com.kodlamaio.commonpackage.utils.dto.GetCarResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,12 @@ import java.util.UUID;
 public class CarClientFallback implements CarClient{
     @Override
     public ClientResponse checkIfCarAvailable(UUID carId) {
+        log.info("CAR SERVICE IS DOWN");
+        throw new RuntimeException("INVENTORY SERVICE IS DOWN");
+    }
+
+    @Override
+    public GetCarResponse getRentalCarById(UUID carId) {
         log.info("CAR SERVICE IS DOWN");
         throw new RuntimeException("INVENTORY SERVICE IS DOWN");
     }

@@ -6,8 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.time.LocalDateTime;
+
 @Setter
 @Getter
 @Document(indexName = "invoices")
@@ -24,5 +27,6 @@ public class Invoice {
     private double dailyPrice;
     private double totalPrice;
     private int rentedForDays;
+    @Field(type = FieldType.Date, format = {}, pattern = "uuuu-MM-dd HH:mm:ss")
     private LocalDateTime rentedAt;
 }

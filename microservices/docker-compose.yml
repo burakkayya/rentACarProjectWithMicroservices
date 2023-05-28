@@ -34,17 +34,16 @@ services:
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.6.2
-    container_name: elasticsearchdb
+    container_name: elasticsearch
     environment:
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    volumes:
-      - esdata1:/usr/share/elasticsearch/data
+      - transport.host=localhost
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xmx2048m -Xms2048m"
     ports:
-      - 9200:9200
+      - "9200:9200"
+      - "9300:9300"
     networks:
-      - esnet
+      esnet:
 
 volumes:
   kafka_data:

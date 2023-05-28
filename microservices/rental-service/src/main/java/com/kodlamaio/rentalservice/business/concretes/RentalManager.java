@@ -68,7 +68,7 @@ public class RentalManager implements RentalService {
 
         Rental createdRental = repository.save(rental);
         GetCarResponse getCarResponse = carClient.getRentalCarById(rental.getCarId());
-        sendKafkaRentalCreatedEvent(getCarResponse, rental.getRentedAt());
+        sendKafkaRentalCreatedEvent(getCarResponse, request, rental.getRentedAt());
         CreateRentalResponse response = mapper.forResponse().map(createdRental, CreateRentalResponse.class);
 
         return response;

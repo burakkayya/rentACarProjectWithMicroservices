@@ -10,7 +10,6 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @EnableElasticsearchRepositories(basePackages = "com.kodlamaio.invoiceservice.repository")
 @SpringBootApplication(scanBasePackages = {Paths.ConfigurationBasePackage, Paths.Invoice.ServiceBasePackage})
 public class InvoiceServiceApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(InvoiceServiceApplication.class, args);
 	}

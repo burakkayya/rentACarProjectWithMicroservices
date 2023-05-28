@@ -27,7 +27,7 @@ public class CarsController {
     }
 
     @GetMapping("/{id}")
-    public GetCarResponse getById(UUID id){
+    public GetCarResponse getById(@PathVariable UUID id){
         return service.getById(id);
     }
 
