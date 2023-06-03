@@ -10,36 +10,17 @@ services:
     volumes:
       - kafka_data:/opt/kafka/kafka-logs
 
-  keycloak_mysql:
-    image: mysql
-    container_name: keycloakdb
-    environment:
-      - MYSQL_ROOT_PASSWORD=12345
-      - MYSQL_TCP_PORT=3305
-      - VIRTUAL_PORT=3305
-    ports:
-      - "3305:3305"
-    volumes:
-      - keycloakdb_data:/data/db
-
   keycloak:
     image: quay.io/keycloak/keycloak:latest
-    container_name: keycloak-test
+    container_name: keycloak
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      DB_VENDOR: MYSQL
-      DB_ADDR: keycloakdb
-      DB_DATABASE: keycloak
-      DB_USER: burak
-      DB_PASSWORD: 12345
     ports:
       - "8080:8080"
     command: start-dev
     volumes:
       - .:/opt/jboss/keycloak/imports
-    depends_on:
-      - keycloak_mysql
 
   mongodb:
     container_name: filterdb
