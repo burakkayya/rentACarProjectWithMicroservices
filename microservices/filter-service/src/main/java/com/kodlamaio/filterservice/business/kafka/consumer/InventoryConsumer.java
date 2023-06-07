@@ -33,7 +33,7 @@ public class InventoryConsumer {
     )
     public void consume(CarDeletedEvent event){
         var filter = mapper.forRequest().map(event, Filter.class);
-        service.delete(event.getCarId());
+        service.deleteByCarId(event.getCarId());
         log.info("Car deleted event consumed {}", event);
     }
 

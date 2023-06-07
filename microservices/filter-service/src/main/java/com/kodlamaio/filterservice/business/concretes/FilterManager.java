@@ -30,7 +30,7 @@ public class FilterManager implements FilterService {
     }
 
     @Override
-    public GetFilterResponse getById(UUID id) {
+    public GetFilterResponse getById(String id) {
         var filter = repository.findById(id);
         var response = mapper.forResponse().map(filter, GetFilterResponse.class);
 
@@ -40,11 +40,6 @@ public class FilterManager implements FilterService {
     @Override
     public void add(Filter filter) {
         repository.save(filter);
-    }
-
-    @Override
-    public void delete(UUID id) {
-        repository.deleteById(id);
     }
 
     @Override

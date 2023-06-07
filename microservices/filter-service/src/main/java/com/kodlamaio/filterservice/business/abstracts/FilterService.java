@@ -9,9 +9,8 @@ import java.util.UUID;
 
 public interface FilterService {
     List<GetAllFiltersResponse> getAll();
-    GetFilterResponse getById(UUID id);
+    GetFilterResponse getById(String id);
     void add(Filter filter);
-    void delete(UUID id);
     void deleteAllByBrandId(UUID brandId);
     void deleteAllByModelId(UUID modelId);
     void deleteByCarId(UUID id);
