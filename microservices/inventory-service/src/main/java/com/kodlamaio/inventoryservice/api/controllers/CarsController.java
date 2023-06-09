@@ -12,10 +12,7 @@ import com.kodlamaio.inventoryservice.business.dto.responses.update.UpdateCarRes
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,10 +30,8 @@ public class CarsController {
     }
 
     @GetMapping("/{id}")
-    @PostAuthorize(Roles.AdminOrModerator + "|| returnObject.modelYear == 2019")
-    public GetCarResponse getById(@PathVariable UUID id, @AuthenticationPrincipal Jwt jwt){
-        System.out.println(jwt.getClaims().get("preffered_username"));
-        System.out.println(jwt.getClaims().get("email"));
+    @PreAuthorize(Roles.AdminOrModerator)
+    public GetCarResponse getById(@PathVariable UUID id){
         return service.getById(id);
     }
 
@@ -59,5 +54,9 @@ public class CarsController {
     @GetMapping("/check-car-available/{id}")
     public ClientResponse checkIfCarAvailable(@PathVariable UUID id){
         return service.checkIfCarAvailable(id);
+    }
+    @GetMapping("/get-car-for-rental/{id}")
+    public GetCarResponse getCarForRental(@PathVariable UUID id){
+        return service.getById(id);
     }
 }

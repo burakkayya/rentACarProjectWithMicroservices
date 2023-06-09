@@ -67,7 +67,7 @@ public class RentalManager implements RentalService {
         rules.checkIfPaymentCompleted(rentalPaymentRequest);
 
         Rental createdRental = repository.save(rental);
-        GetCarResponse getCarResponse = carClient.getRentalCarById(rental.getCarId());
+        GetCarResponse getCarResponse = carClient.getCarById(rental.getCarId());
         sendKafkaRentalCreatedEvent(getCarResponse, request, rental.getRentedAt());
         CreateRentalResponse response = mapper.forResponse().map(createdRental, CreateRentalResponse.class);
 
@@ -106,6 +106,7 @@ public class RentalManager implements RentalService {
         event.setModelName(getCarResponse.getModelName());
         event.setModelYear(getCarResponse.getModelYear());
         event.setDailyPrice(request.getDailyPrice());
+        event.setRentedForDays(request.getRentedForDays());
         producer.sendMessage(event, "rental-created");
     }
 
